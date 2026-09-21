@@ -1,0 +1,35 @@
+/* Final visual QA patch — 2026-09-22 */
+/* Desktop covers were not actually flex containers, so inline auto margins created avoidable dead space. */
+@media (min-width:901px){
+  #s1,#s20{display:flex!important;flex-direction:column!important;justify-content:center!important}
+  #s1>div[style*="margin-top:auto"]{margin-top:0!important;margin-bottom:0!important;max-width:72vw!important}
+  #s20>.row.wide{flex:0 1 auto!important;min-height:64vh;width:100%;align-items:center}
+}
+
+/* Remove the tint over the high-resolution first-party screenshots; it made crisp UI look soft. */
+.visual:has(img[data-hq-source="pixel8labs.com"]):after{display:none!important}
+.visual img[data-hq-source="pixel8labs.com"]{filter:none!important;opacity:1!important;backface-visibility:hidden}
+
+/* Give UI screenshots a deliberate frame rather than large accidental letterbox space. */
+#s11 .visual,#s13 .visual,#s14 .visual{padding:1.2vh .7vw;background:linear-gradient(145deg,#09050f,#160921)!important}
+#s11 .visual img,#s13 .visual img,#s14 .visual img{max-width:100%;max-height:100%;margin:auto;border-radius:2px;box-shadow:0 16px 42px rgba(0,0,0,.34)}
+
+/* Slide 19 was still visually light after the first whitespace pass. */
+#s19 .faceGrid{align-items:start}
+#s19 .face{padding:1.2vh .7vw 1.8vh;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.12)}
+#s19 .bar{margin:2vh 0 1.6vh}
+
+/* Keep the final CTA compact and visually anchored. */
+#s20 .card{min-height:0!important;padding:3.2vh 1.8vw!important}
+#s20 .pillrow{gap:.7vw!important}
+
+@media (max-width:1279px) and (min-width:901px){
+  #s1>div[style*="margin-top:auto"]{max-width:82vw!important}
+  #s20>.row.wide{min-height:58vh}
+  #s11 .visual,#s13 .visual,#s14 .visual{padding:10px}
+}
+
+@media (max-width:900px){
+  #s11 .visual,#s13 .visual,#s14 .visual{padding:10px}
+  #s19 .face{padding:18px 14px}
+}
