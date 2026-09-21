@@ -1,0 +1,77 @@
+/* Pixel8Labs QA round 2 — readability, density and interaction polish */
+
+@media (min-width:1280px){
+  /* Tighten the global vertical rhythm now that sections are content-driven. */
+  .slide:not(.cover){padding-top:48px!important;padding-bottom:66px!important}
+  #s8,#s17,#s18{padding-bottom:98px!important}
+
+  /* Long headlines were wrapping too aggressively because the base deck caps h2 at 14ch. */
+  #s4 h2,#s5 h2,#s14 h2,#s15 h2,#s16 h2,#s17 h2,#s19 h2{max-width:20ch!important;font-size:clamp(42px,4.55vw,74px)}
+  #s14 h2{max-width:23ch!important}
+  #s15 h2,#s19 h2{max-width:18ch!important}
+
+  /* Capability pages read better when the short intro is vertically balanced with the card matrix. */
+  #s6 .row.wide,#s7 .row.wide,#s9 .row.wide{align-items:center!important}
+  #s6 .row.wide>div:first-child,#s7 .row.wide>div:first-child,#s9 .row.wide>div:first-child{padding-bottom:6px}
+
+  /* Five-column pages were still a little cramped at common laptop/desktop widths. */
+  #s4 .grid5 .card h3,#s12 .grid5 .card h3,#s16 .grid5 .card h3{font-size:clamp(17px,1.35vw,22px)!important;line-height:1.08}
+  #s4 .grid5 .card p,#s12 .grid5 .card p,#s16 .grid5 .card p{font-size:clamp(12px,.82vw,14px)!important;line-height:1.42}
+  #s16 .grid5>div:nth-child(3) h3{font-size:clamp(15px,1.18vw,20px)!important}
+
+  /* Slide 10: make outcomes scannable without squeezing four metrics into one narrow row. */
+  #s10 .case .copy .grid4{grid-template-columns:repeat(2,1fr)!important;gap:16px 22px!important;margin-top:20px!important}
+  #s10 .metric{font-size:clamp(30px,2.5vw,42px)}
+  #s10 .metricLabel{font-size:12px;line-height:1.3}
+  #s10 .bar{margin:20px 0 18px}
+  #s10 .case .copy h3:nth-of-type(2){font-size:clamp(18px,1.45vw,24px)}
+
+  /* Case studies: body copy had fallen to ~10px on 1440px displays. */
+  #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:clamp(12px,.84vw,14px)!important;line-height:1.42!important;margin-top:.58em!important}
+  #s13 .grid3>div>p strong,#s14 .grid3>div>p strong{color:#fff}
+  #s13 .grid3>div>h3,#s14 .grid3>div>h3{line-height:1.08}
+  #s13 .visual.medium,#s14 .visual.medium{height:clamp(210px,27vh,290px)!important}
+
+  /* Selected clients should feel like a trust wall, not ten large content cards. */
+  #s15 .logoWall{gap:10px!important;margin-top:24px!important}
+  #s15 .logo{min-height:72px!important;background:rgba(0,0,0,.18)!important;border-color:rgba(255,255,255,.13)!important;font-size:clamp(16px,1.3vw,23px)!important;letter-spacing:.025em!important;padding:10px 12px!important}
+
+  /* Engagement cards: align the recommendation line along the bottom. */
+  #s18 .grid3 .card{display:flex;flex-direction:column}
+  #s18 .grid3 .card .bar{margin:18px 0 14px}
+  #s18 .grid3 .card .small:last-child{margin-top:auto;padding-top:2px}
+
+  /* Leadership: improve hierarchy inside compact cards. */
+  #s19 .face h3{font-size:clamp(22px,1.75vw,30px)!important}
+  #s19 .face .small{font-size:clamp(12px,.84vw,14px)!important;line-height:1.45}
+
+  /* Final CTA: make the actual conversion action visually primary. */
+  #s20 .pillrow{gap:10px!important}
+  #s20 .pill[href*="chat.pixel8labs.com"]{background:linear-gradient(90deg,#ff4d9b,#9a39ff)!important;border-color:transparent!important;color:#fff!important;font-weight:800;padding:.72em 1em!important}
+}
+
+@media (max-width:1279px) and (min-width:901px){
+  #s4 h2,#s5 h2,#s14 h2,#s15 h2,#s16 h2,#s17 h2,#s19 h2{max-width:20ch!important;font-size:clamp(40px,5.8vw,66px)}
+  #s6 .row.wide,#s7 .row.wide,#s9 .row.wide{align-items:center!important}
+  #s10 .case .copy .grid4{grid-template-columns:repeat(2,1fr)!important;gap:14px 18px!important}
+  #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:13px!important;line-height:1.42!important}
+  #s15 .logo{min-height:68px!important;font-size:clamp(16px,2vw,22px)!important;padding:10px!important}
+  #s18 .grid3 .card{display:flex;flex-direction:column}
+  #s18 .grid3 .card .small:last-child{margin-top:auto}
+  #s20 .pill[href*="chat.pixel8labs.com"]{background:linear-gradient(90deg,#ff4d9b,#9a39ff)!important;border-color:transparent!important;color:#fff!important;font-weight:800}
+}
+
+@media (max-width:900px){
+  h2{max-width:none!important}
+  .visual img{min-height:0!important}
+  .visual.tall,.visual.medium,.visual.short{min-height:180px!important}
+  #s10 .case .copy .grid4{grid-template-columns:repeat(2,1fr)!important;gap:16px 14px!important}
+  #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:13px!important;line-height:1.45!important}
+  #s15 .logoWall{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+  #s15 .logo{min-height:58px!important;font-size:16px!important;padding:8px!important}
+  #s18 .grid3 .card{display:flex;flex-direction:column}
+  #s18 .grid3 .card .small:last-child{margin-top:auto}
+  #s20 .pillrow{display:grid;grid-template-columns:1fr;gap:10px!important}
+  #s20 .pill[href]{display:block;text-align:center;padding:12px 14px!important}
+  #s20 .pill[href*="chat.pixel8labs.com"]{background:linear-gradient(90deg,#ff4d9b,#9a39ff)!important;border-color:transparent!important;color:#fff!important;font-weight:800}
+}
