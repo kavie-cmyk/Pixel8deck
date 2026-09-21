@@ -2,6 +2,11 @@
 .slide:after{display:none!important}
 .toc{display:none!important}
 
+/* Use the full viewport intentionally instead of pinning content to the top. */
+.slide:not(.cover){display:flex;flex-direction:column;justify-content:center}
+.slide:not(.cover)>.top,.slide:not(.cover)>.row,.slide:not(.cover)>.grid2,.slide:not(.cover)>.grid3,.slide:not(.cover)>.grid4,.slide:not(.cover)>.grid5,.slide:not(.cover)>.case,.slide:not(.cover)>.faceGrid,.slide:not(.cover)>.proof{width:100%}
+.slide>.top{margin-bottom:0}
+
 .deckProgress{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:1200;width:min(560px,72vw);display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid rgba(255,255,255,.15);background:rgba(8,3,14,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 35px rgba(0,0,0,.35);border-radius:999px;color:#f7edf9;font:700 11px/1.1 Arial,sans-serif;letter-spacing:.08em}
 .deckProgress__label{min-width:50px;text-align:right;color:rgba(255,255,255,.8)}
 .deckProgress__track{height:3px;flex:1;background:rgba(255,255,255,.12);overflow:hidden;border-radius:999px}
@@ -19,38 +24,67 @@
 .deliveryFlow__step h3{font-size:clamp(16px,1.35vw,22px);margin:0}
 .deliveryFlow__step p{margin:.25em 0 0;font-size:clamp(11px,.78vw,14px);line-height:1.3}
 
-#s13 .visual.medium,#s14 .visual.medium{height:31vh}
+/* Slides with lighter content need a stronger visual footprint. */
+#s3 .quote{min-height:19vh;display:flex;flex-direction:column;justify-content:center}
+#s5 .grid4 .card{min-height:31vh;display:flex;flex-direction:column;justify-content:center}
+#s8 .grid4 .card{min-height:32vh;display:flex;flex-direction:column;justify-content:center}
+#s17 .grid4 .card{min-height:31vh;display:flex;flex-direction:column;justify-content:center}
+#s18 .grid3 .card{min-height:39vh;display:flex;flex-direction:column;justify-content:center}
+#s19 .faceGrid{margin-top:3vh}
+#s19 .avatar{width:15.5vw;max-width:225px}
+
+/* Case-study slides: keep visuals substantial without pushing copy off-screen. */
+#s13 .visual.medium,#s14 .visual.medium{height:33vh}
 #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:clamp(10px,.72vw,13px);line-height:1.32;margin-top:.52em}
 #s13 .grid3>div>h3,#s14 .grid3>div>h3{margin-top:1vh;font-size:clamp(18px,1.55vw,25px)}
 
+/* Better vertical rhythm on common laptop heights. */
+@media (min-width:1280px) and (max-height:820px){
+ .slide{padding-top:4.4vh;padding-bottom:5.8vh}
+ #s3 .quote{min-height:17vh}
+ #s5 .grid4 .card,#s8 .grid4 .card,#s17 .grid4 .card{min-height:27vh}
+ #s18 .grid3 .card{min-height:34vh}
+ #s13 .visual.medium,#s14 .visual.medium{height:29vh}
+}
+
 @media (max-width:1279px) and (min-width:901px){
  html{scroll-snap-type:y proximity!important}
- .slide{height:auto;min-height:100vh;overflow:visible;padding-bottom:9vh}
+ .slide{height:auto;min-height:100svh;overflow:visible;padding:6vh 5vw 9vh;display:flex;flex-direction:column;justify-content:center}
  .grid5{grid-template-columns:repeat(3,1fr)!important}
  .grid5 .card{min-height:27vh}
  .grid4{grid-template-columns:repeat(2,1fr)!important}
+ #s5 .grid4 .card,#s8 .grid4 .card,#s17 .grid4 .card{min-height:24vh}
+ #s18 .grid3 .card{min-height:30vh}
+ #s13,#s14{justify-content:flex-start;padding-top:7vh}
  #s13 .grid3,#s14 .grid3{grid-template-columns:1fr!important}
- #s13 .visual.medium,#s14 .visual.medium{height:38vh}
- #s13 .grid3>div,#s14 .grid3>div{display:grid;grid-template-columns:minmax(280px,.9fr) 1.1fr;column-gap:24px;align-items:start}
+ #s13 .visual.medium,#s14 .visual.medium{height:34vh}
+ #s13 .grid3>div,#s14 .grid3>div{display:grid;grid-template-columns:minmax(280px,.9fr) 1.1fr;column-gap:24px;align-items:start;margin-top:2.4vh}
  #s13 .grid3>div>.visual,#s14 .grid3>div>.visual{grid-row:1/5}
  #s13 .grid3>div>h3,#s14 .grid3>div>h3{margin-top:0}
  .logoWall{grid-template-columns:repeat(3,1fr)!important}
+ #s19 .avatar{width:18vw;max-width:205px}
 }
 
 @media (max-width:900px){
  html{scroll-snap-type:none!important;scroll-behavior:smooth}
  body{overflow-x:hidden}
- .slide{height:auto!important;min-height:100vh;overflow:visible!important;padding:6vh 6vw 11vh}
+ .slide{height:auto!important;min-height:0!important;overflow:visible!important;padding:52px 6vw 86px;display:block!important}
+ .slide.cover{min-height:100svh!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
  .row,.row.wide,.row.rev,.grid2,.grid3,.grid4,.grid5,.stats,.quoteGrid,.proof,.ladder,.faceGrid,.logoWall{grid-template-columns:1fr!important}
- .grid5 .card{min-height:auto!important}
- .visual.tall,.visual.medium,.visual.short,#s13 .visual.medium,#s14 .visual.medium{height:auto!important;min-height:240px}
+ .grid5 .card,#s3 .quote,#s5 .grid4 .card,#s8 .grid4 .card,#s17 .grid4 .card,#s18 .grid3 .card{min-height:auto!important}
+ .card,.quote{padding:20px 18px}
+ .quoteGrid,.grid2,.grid3,.grid4,.grid5{gap:14px}
+ .visual.tall,.visual.medium,.visual.short,#s13 .visual.medium,#s14 .visual.medium{height:auto!important;min-height:220px}
  .pixelmark{right:6vw}
- .brand,.foot{position:relative;right:auto;left:auto;bottom:auto;margin-top:3.5vh}
- .ribbon{position:relative;left:auto;right:auto;bottom:auto;height:auto;margin:4vh -6vw -11vh;padding:2vh 6vw}
+ .brand,.foot{position:relative;right:auto;left:auto;bottom:auto;margin-top:28px}
+ .ribbon{position:relative;left:auto;right:auto;bottom:auto;height:auto;margin:30px -6vw -86px;padding:18px 6vw}
  .deckProgress{width:calc(100vw - 24px);bottom:8px;padding:8px 10px}
+ .deliveryFlow{margin-top:22px}
  .deliveryFlow__step{grid-template-columns:36px 1fr;padding:12px}
  .deliveryFlow__n{width:34px;height:34px}
- #s13 .grid3>div,#s14 .grid3>div{display:block}
+ #s13 .grid3>div,#s14 .grid3>div{display:block;margin-top:20px}
+ #s13 .grid3>div:first-child,#s14 .grid3>div:first-child{margin-top:0}
+ #s19 .avatar{width:min(52vw,220px)}
  h1{font-size:clamp(54px,17vw,92px)}
  h2{font-size:clamp(40px,12vw,70px)}
  .lead{font-size:clamp(18px,5vw,24px)}
@@ -63,5 +97,5 @@
 
 @media print{
  .deckProgress{display:none!important}
- .slide{overflow:hidden!important}
+ .slide{overflow:hidden!important;display:flex!important;justify-content:center!important}
 }
