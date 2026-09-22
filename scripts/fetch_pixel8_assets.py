@@ -17,10 +17,12 @@ OUT = ROOT / "assets"
 UA = "Mozilla/5.0 (Pixel8DeckPages/1.0)"
 
 CASE_PAGES = {
+    "01": "/works/madmeerkat-nft",
     "02": "/works/security",
     "03": "/works/ai-financial-statements",
     "04": "/works/ai-invoice-receipt-scanner",
     "05": "/works/ai-crypto-bookkeeper",
+    "06": "/works/ramen-launchpad",
     "07": "/works/stablecoin-payment-platform",
     "08": "/works/mandala-club",
 }
@@ -148,7 +150,7 @@ def main() -> None:
     for key, page in CASE_PAGES.items():
         fetch_case(key, page)
     fetch_founders()
-    required = ["02", "03", "04", "05", "07", "08", "10", "11", "12"]
+    required = ["01", "02", "03", "04", "05", "06", "07", "08", "10", "11", "12"]
     missing = [k for k in required if not (OUT / f"{k}.jpg").exists()]
     if missing:
         raise SystemExit(f"Missing generated assets: {', '.join(missing)}")
