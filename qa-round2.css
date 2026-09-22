@@ -89,3 +89,11 @@
   #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:12.5px!important;line-height:1.42!important;margin-top:.44em!important}
   #s13 .grid3>div>p strong,#s14 .grid3>div>p strong{color:#fff}
 }
+
+/* QA round 4: keep decorative cover artwork and long headings from widening the mobile document. */
+@media (max-width:900px){
+  html,body{max-width:100%!important;overflow-x:clip!important}
+  .slide.cover{overflow:hidden!important}
+  h1,h2,h3{overflow-wrap:break-word;word-break:normal}
+  #s15 h2{font-size:clamp(38px,11vw,56px)!important;letter-spacing:-.02em!important}
+}
