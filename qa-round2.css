@@ -75,3 +75,17 @@
   #s20 .pill[href]{display:block;text-align:center;padding:12px 14px!important}
   #s20 .pill[href*="chat.pixel8labs.com"]{background:linear-gradient(90deg,#ff4d9b,#9a39ff)!important;border-color:transparent!important;color:#fff!important;font-weight:800}
 }
+
+/* QA round 3: eliminate blank image panels and tighten long mobile case studies. */
+#s13 .visual img,#s14 .visual img{width:100%;height:100%;display:block}
+@media (max-width:900px){
+  #s13 .grid3>div,#s14 .grid3>div{
+    padding:14px 0 18px;
+    border-bottom:1px solid rgba(255,255,255,.10)
+  }
+  #s13 .grid3>div:last-child,#s14 .grid3>div:last-child{border-bottom:0;padding-bottom:0}
+  #s13 .visual.medium,#s14 .visual.medium{min-height:160px!important;margin-bottom:12px}
+  #s13 .grid3>div>h3,#s14 .grid3>div>h3{font-size:22px!important;margin-top:0!important}
+  #s13 .grid3>div>p,#s14 .grid3>div>p{font-size:12.5px!important;line-height:1.42!important;margin-top:.44em!important}
+  #s13 .grid3>div>p strong,#s14 .grid3>div>p strong{color:#fff}
+}
