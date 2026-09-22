@@ -52,7 +52,7 @@
     button.addEventListener('click',()=>{
       document.body.classList.add('appendixOpen');
       refreshSlides();
-      byId('s6')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+      byId('s6')?.scrollIntoView({behavior:'auto',block:'start'});
     });
   }
   if(!document.querySelector('.appendixClose')){
@@ -63,7 +63,7 @@
     close.addEventListener('click',()=>{
       document.body.classList.remove('appendixOpen');
       refreshSlides();
-      byId('s4')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+      byId('s4')?.scrollIntoView({behavior:'auto',block:'start'});
     });
     document.body.appendChild(close);
   }
