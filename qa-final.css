@@ -1,91 +1,118 @@
-/* Pixel8Labs live QA patch — compact web-deck layout */
+/* Pixel8Labs final UX/UI pass — concise sales flow, proof-led visuals and responsive controls */
+:root{--header-height:58px}
+html{scroll-padding-top:calc(var(--header-height) + 10px)}
+body{overflow-x:clip;padding-top:var(--header-height);padding-bottom:68px}
+.slide{scroll-margin-top:var(--header-height)}
+.appendixSlide{display:none!important}
+.appendixOpen .appendixSlide{display:block!important}
 
-/* HQ first-party screenshots should remain crisp and untinted. */
-.visual:has(img[data-hq-source="pixel8labs.com"]):after{display:none!important}
-.visual img[data-hq-source="pixel8labs.com"]{filter:none!important;opacity:1!important;backface-visibility:hidden}
+.siteHeader{position:fixed;inset:0 0 auto;z-index:1500;height:var(--header-height);display:flex;align-items:center;gap:26px;padding:0 5vw;border-bottom:1px solid rgba(255,255,255,.12);background:rgba(7,2,12,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.siteHeader a{text-decoration:none;color:#f9f4fb}
+.siteHeader__brand{display:flex;align-items:center;gap:9px;font:800 14px/1 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.siteHeader__brand span{display:grid;place-items:center;width:28px;height:28px;border:1px solid #ff5aac;color:#ff75ba;font-size:12px;box-shadow:-4px 4px 0 rgba(255,90,172,.22)}
+.siteHeader__nav{display:flex;align-items:center;gap:22px;margin-left:auto}
+.siteHeader__nav a{font:700 12px/1 Arial,sans-serif;color:#d8cce0;transition:color .18s ease}
+.siteHeader__nav a:hover,.siteHeader__nav a:focus-visible{color:#fff;outline:none}
+.siteHeader__cta{margin-left:8px;padding:10px 14px;background:linear-gradient(90deg,#ff4d9b,#9138ff);font:800 12px/1 Arial,sans-serif;border:1px solid transparent}
+.siteHeader__cta:hover,.siteHeader__cta:focus-visible{filter:brightness(1.12);outline:2px solid #ff83c1;outline-offset:2px}
 
-.caseVisualLink{display:block;min-width:0;text-decoration:none;color:inherit}
-.caseVisualLink:focus-visible{outline:2px solid #ff69b4;outline-offset:4px}
+.pixelmark:after{content:"PIXEL";position:absolute;top:42px;left:50%;transform:translateX(-50%);font:800 7px/1 Arial,sans-serif;letter-spacing:.14em;color:rgba(255,255,255,.55)}
+.coverGlow{max-width:100vw;pointer-events:none}
+.slide.cover{overflow:hidden!important}
 
-/* Give screenshots a deliberate frame rather than stretching them to fill empty space. */
-#s10 .visual,#s11 .visual,#s13 .visual,#s14 .visual,#s15 .visual{
-  padding:10px;background:linear-gradient(145deg,#09050f,#160921)!important
+.appendixToggle{margin-top:22px;display:inline-flex;align-items:center;gap:18px;min-height:44px;padding:10px 14px;border:1px solid rgba(255,255,255,.24);background:rgba(0,0,0,.26);color:#fff;font:800 12px/1 Arial,sans-serif;letter-spacing:.03em;cursor:pointer}
+.appendixToggle:hover,.appendixToggle:focus-visible{border-color:#ff69b4;background:rgba(255,77,155,.12);outline:2px solid transparent}
+.appendixClose{display:none;position:fixed;right:18px;bottom:78px;z-index:1350;min-height:44px;padding:0 16px;border:1px solid rgba(255,255,255,.24);background:rgba(10,4,17,.92);color:#fff;font:800 12px/1 Arial,sans-serif;cursor:pointer}
+.appendixOpen .appendixClose{display:block}
+.appendixSlide .eyebrow:after{content:" · Detailed appendix";color:#ff79ba}
+
+.ribbon{background:linear-gradient(90deg,#253dc3,#7c2fe4 52%,#d23880)!important}
+
+#s12 .metric{font-size:clamp(30px,2.45vw,42px)!important;line-height:1!important;overflow-wrap:normal;word-break:normal}
+#s12 .metricValue{display:block;font-size:1.2em}
+#s12 .metricUnit{display:block;font-size:.62em;line-height:1.05;margin-top:3px}
+#s12 .card{overflow:hidden}
+
+.securityProof{min-height:420px;display:grid;grid-template-rows:auto repeat(3,1fr);border:1px solid rgba(255,255,255,.18);background:linear-gradient(145deg,#09050f,#160921);box-shadow:0 28px 72px rgba(0,0,0,.42)}
+.securityProof__header{padding:24px;border-bottom:1px solid rgba(255,255,255,.13)}
+.securityProof__header span{display:block;color:#ff69b4;font:800 11px/1 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.securityProof__header strong{display:block;max-width:30ch;margin-top:10px;font:800 clamp(18px,1.7vw,26px)/1.18 Arial,sans-serif}
+.securityProof__item{display:grid;grid-template-columns:48px 1fr;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.securityProof__item:last-child{border-bottom:0}
+.securityProof__index{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,77,155,.55);color:#ff74b8;font:900 12px/1 Arial,sans-serif}
+.securityProof__item strong,.securityProof__item small{display:block}
+.securityProof__item strong{font:800 clamp(18px,1.55vw,24px)/1.1 Arial,sans-serif}
+.securityProof__item small{margin-top:5px;color:#d5c8df;font:600 13px/1.3 Arial,sans-serif}
+
+#s15 .logo{display:flex!important;justify-content:flex-start;gap:14px;text-align:left!important;min-height:74px!important;padding:12px 14px!important;font:800 clamp(14px,1.05vw,18px)/1.1 Arial,sans-serif!important;text-transform:none!important;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.02))!important;transition:transform .18s ease,border-color .18s ease;animation:clientIn .35s ease both;animation-delay:var(--client-delay)}
+#s15 .logo:hover{transform:translateY(-2px);border-color:rgba(255,105,180,.55)!important}
+.clientMark{flex:0 0 auto;display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(255,105,180,.6);color:#ff79ba;font:900 11px/1 Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase}
+@keyframes clientIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.caseCard{position:relative}
+.caseCard .visual{position:relative}
+.caseOutcome{position:absolute;left:10px;right:10px;bottom:10px;z-index:4;padding:9px 11px;border-left:3px solid #ff63ae;background:rgba(8,3,14,.88);backdrop-filter:blur(8px);color:#fff;font:700 12px/1.3 Arial,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+#s13 .visual img,#s14 .visual img{object-position:center top!important}
+
+@media (min-width:901px){
+  #s12 h2,#s15 h2,#s19 h2{font-size:clamp(42px,4.15vw,68px)!important;max-width:20ch!important}
+  #s13 h2,#s14 h2{font-size:clamp(42px,4.35vw,70px)!important;max-width:23ch!important}
 }
-#s10 .visual img,#s11 .visual img,#s13 .visual img,#s14 .visual img,#s15 .visual img{
-  max-width:100%;max-height:100%;margin:auto;border-radius:2px;box-shadow:0 16px 42px rgba(0,0,0,.30)
-}
+#s19 .avatar{position:relative;background:#170821}
+#s19 .avatar:after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(50,87,255,.08),rgba(255,77,155,.13));pointer-events:none}
+#s19 .avatar img{filter:saturate(.82) contrast(1.06) brightness(.98)}
 
-@media (min-width:1280px){
-  /* The site is a web deck, not a literal 100vh PowerPoint. Full-height sections were
-     the main source of the repeated dead space. Keep covers full-screen, let content
-     sections size to their content, and retain proximity snapping. */
-  html{scroll-snap-type:y proximity!important}
-  .slide:not(.cover){
-    height:auto!important;
-    min-height:78svh!important;
-    overflow:visible!important;
-    padding:4.8vh 5vw 7vh!important;
-    scroll-snap-align:start;
-  }
-  .slide.cover{height:100svh!important;min-height:680px!important}
-
-  /* Dense/visual pages still get more breathing room. */
-  #s2,#s4,#s6,#s7,#s9,#s10,#s11,#s13,#s14,#s15{min-height:88svh!important}
-  #s3,#s5,#s8,#s12,#s16,#s17,#s18,#s19{min-height:74svh!important}
-
-  /* Reduce repeated top-to-content gaps. */
-  #s3 .quoteGrid,#s4 .grid5,#s5 .grid4,#s8 .grid4,#s12 .grid5,#s13 .grid3,#s14 .grid3,#s16 .grid5,#s17 .grid4,#s18 .grid3,#s19 .faceGrid{
-    margin-top:2.6vh!important
-  }
-
-  /* Cards should carry the content, not artificially fill half a viewport. */
-  #s3 .quote{min-height:15vh!important;padding:1.8vh 1.3vw}
-  #s5 .grid4 .card,#s8 .grid4 .card,#s17 .grid4 .card{min-height:23vh!important}
-  #s18 .grid3 .card{min-height:29vh!important}
-  #s12 .grid5 .card,#s16 .grid5 .card{min-height:34vh!important}
-
-  /* Slide 10: restore the real case image, let the copy own the metrics, and remove
-     the duplicate metric panel that had replaced the image. */
-  #s10 .case{grid-template-columns:1.08fr .92fr;gap:1.5vw;align-items:stretch;margin-top:2.7vh}
-  #s10 .caseVisualLink{height:44vh;min-height:340px;max-height:500px}
-  #s10 .caseVisualLink .visual{height:100%!important}
-  #s10 .case .copy{display:flex;flex-direction:column;justify-content:center;padding:2.2vh 1.5vw}
-
-  /* Keep lower-resolution legacy composites at a restrained size instead of upscaling. */
-  #s14 .grid3>div:nth-child(1) .visual,
-  #s14 .grid3>div:nth-child(3) .visual{height:26vh!important}
-  #s15 .visual{height:38vh!important}
-  #s15 .row.wide{grid-template-columns:1.12fr .88fr;gap:3vw}
-
-  /* Leadership should read as one compact band, not a full-screen empty page. */
-  #s19 .faceGrid{align-items:start;gap:2vw}
-  #s19 .face{padding:1.2vh .8vw 1.6vh;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.12)}
-  #s19 .avatar{width:12vw!important;max-width:180px!important}
-  #s19 .bar{margin:1.6vh 0 1.3vh}
-
-  /* Covers: anchor content centrally without inherited auto-margin dead space. */
-  #s1,#s20{display:flex!important;flex-direction:column!important;justify-content:center!important}
-  #s1>div[style*="margin-top:auto"]{margin-top:0!important;margin-bottom:0!important;max-width:72vw!important}
-  #s20>.row.wide{flex:0 1 auto!important;min-height:58vh;width:100%;align-items:center}
-  #s20 .card{min-height:0!important;padding:3vh 1.7vw!important}
-}
-
-@media (max-width:1279px) and (min-width:901px){
-  html{scroll-snap-type:y proximity!important}
-  .slide{height:auto!important;min-height:86svh!important;overflow:visible!important}
-  #s1,#s20{min-height:100svh!important}
-  #s1>div[style*="margin-top:auto"]{max-width:82vw!important}
-  #s20>.row.wide{min-height:54vh}
-  #s10 .caseVisualLink{display:block;height:38vh;min-height:300px}
-  #s10 .caseVisualLink .visual{height:100%!important}
-  #s14 .grid3>div:nth-child(1) .visual,#s14 .grid3>div:nth-child(3) .visual{height:30vh!important}
-  #s19 .face{padding:16px 14px}
-}
+.deckProgress{bottom:12px!important;min-height:50px!important;padding:3px 5px!important;gap:8px!important;width:min(560px,calc(100vw - 28px))!important}
+.deckProgress__prev,.deckProgress__next{display:grid!important;place-items:center;min-width:44px!important;width:44px!important;height:44px!important;padding:0!important;border-radius:999px!important}
+.deckProgress__prev:disabled,.deckProgress__next:disabled{opacity:.25!important;cursor:not-allowed}
+.deckProgress__label{min-width:58px!important;text-align:center!important;font-size:11px}
+.toc a{display:inline-block;width:12px!important;height:12px!important;padding:8px!important;background-clip:content-box!important}
 
 @media (max-width:900px){
-  /* Mobile stays content-driven; do not create synthetic empty height. */
-  .slide:not(.cover){min-height:0!important}
-  #s10 .caseVisualLink{display:block;height:auto}
-  #s10 .caseVisualLink .visual{min-height:240px}
-  #s19 .face{padding:18px 14px}
+  :root{--header-height:54px}
+  body{padding-bottom:72px}
+  .siteHeader{padding:0 16px;gap:12px}
+  .siteHeader__brand{font-size:12px}
+  .siteHeader__brand span{width:26px;height:26px}
+  .siteHeader__nav{display:none}
+  .siteHeader__cta{margin-left:auto;padding:10px 11px;font-size:11px}
+  .slide{padding:46px 6vw 98px!important}
+  .slide.cover{min-height:calc(100svh - var(--header-height))!important}
+  h1{font-size:clamp(48px,15vw,74px)!important;line-height:.94!important}
+  h2{font-size:clamp(36px,10.6vw,54px)!important;line-height:.96!important}
+  h3{font-size:clamp(20px,6.2vw,28px)}
+  p,.lead{font-size:16px!important;line-height:1.48!important}
+  .small,#s13 .grid3>div>p,#s14 .grid3>div>p{font-size:14px!important;line-height:1.48!important}
+  .pixelmark{top:16px;right:6vw}
+  .pixelmark:after{display:none}
+  .pillrow{gap:8px!important}
+  .pill{font-size:12px!important}
+  #s12 .grid5{grid-template-columns:1fr!important}
+  #s12 .metric{font-size:38px!important}
+  #s15 .logoWall{grid-template-columns:1fr 1fr!important}
+  #s15 .logo{min-height:62px!important;padding:9px!important;font-size:13px!important;gap:9px}
+  .clientMark{width:32px;height:32px;font-size:10px}
+  .securityProof{min-height:0}
+  .securityProof__header,.securityProof__item{padding:18px}
+  .caseOutcome{font-size:11px;left:8px;right:8px;bottom:8px}
+  #s19 .faceGrid{gap:16px!important}
+  #s19 .face{padding:20px 14px!important}
+  .deckProgress{bottom:max(7px,env(safe-area-inset-bottom))!important;background:rgba(8,3,14,.9)!important}
+  .deckProgress__track{display:none}
+  .deckProgress__label{flex:1;text-align:center!important}
+  .appendixClose{right:12px;bottom:70px}
+}
+
+@media (max-width:520px){
+  .siteHeader__cta{max-width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #s15 .logoWall{grid-template-columns:1fr!important}
+  #s10 .case .copy .grid4{grid-template-columns:1fr 1fr!important}
+}
+
+@media (prefers-reduced-motion:reduce){.logo{animation:none!important}}
+
+@media print{
+  body{padding:0}
+  .siteHeader,.deckProgress,.appendixToggle,.appendixClose{display:none!important}
+  .appendixSlide{display:block!important}
 }
