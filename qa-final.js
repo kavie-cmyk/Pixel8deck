@@ -167,4 +167,11 @@
   },{passive:true});
   addEventListener('resize',updateActive,{passive:true});
   refreshSlides();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const deepLink=location.hash ? byId(location.hash.slice(1)) : null;
+    if(deepLink&&getComputedStyle(deepLink).display!=='none'){
+      deepLink.scrollIntoView({behavior:'auto',block:'start'});
+    }
+    updateActive();
+  }));
 })();

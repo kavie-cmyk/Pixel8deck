@@ -3,8 +3,8 @@
 html{scroll-padding-top:calc(var(--header-height) + 10px)}
 body{overflow-x:clip;padding-top:var(--header-height);padding-bottom:68px}
 .slide{scroll-margin-top:var(--header-height)}
-.appendixSlide{display:none!important}
-.appendixOpen .appendixSlide{display:block!important}
+body:not(.appendixOpen) .slide.appendixSlide{display:none!important}
+body.appendixOpen .slide.appendixSlide{display:block!important}
 
 .siteHeader{position:fixed;inset:0 0 auto;z-index:1500;height:var(--header-height);display:flex;align-items:center;gap:26px;padding:0 5vw;border-bottom:1px solid rgba(255,255,255,.12);background:rgba(7,2,12,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .siteHeader a{text-decoration:none;color:#f9f4fb}
@@ -114,5 +114,5 @@ body{overflow-x:clip;padding-top:var(--header-height);padding-bottom:68px}
 @media print{
   body{padding:0}
   .siteHeader,.deckProgress,.appendixToggle,.appendixClose{display:none!important}
-  .appendixSlide{display:block!important}
+  body .slide.appendixSlide{display:block!important}
 }
