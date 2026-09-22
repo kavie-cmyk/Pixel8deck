@@ -2,8 +2,6 @@
   const slides=[...document.querySelectorAll('.slide')];
   if(!slides.length) return;
 
-  // Visual fidelity: use real case-study imagery. Do not replace image panels with
-  // text-only metric cards because the copy already carries those outcomes.
   const visualStyle=document.createElement('style');
   visualStyle.textContent=`
     .visual{background:linear-gradient(145deg,#09050f,#14091e)!important}
@@ -12,60 +10,13 @@
     .visual img[data-hq-source="pixel8labs.com"]{width:100%;height:100%;transform:translateZ(0)}
     .visual:has(img[data-hq-source="pixel8labs.com"]):after{display:none!important}
     #s10 .visual img{object-fit:contain!important}
-    #s15 .visual img{object-fit:contain!important}
-    @media(max-width:900px){.visual img{min-height:220px;object-fit:contain!important}}
   `;
   document.head.appendChild(visualStyle);
 
-  // Higher-resolution first-party assets verified from pixel8labs.com.
-  const hqImages={
-    '02':'https://pixel8labs.com/_next/static/media/gallery-1.3b0bbe59.png',
-    '03':'https://pixel8labs.com/_next/static/media/gallery-1.60f5e0ff.png',
-    '04':'https://pixel8labs.com/_next/static/media/gallery-1.da532135.png',
-    '05':'https://pixel8labs.com/_next/static/media/gallery-1.afef0f6f.png',
-    '07':'https://pixel8labs.com/_next/static/media/gallery-1.65259aae.png',
-    '10':'https://pixel8labs.com/_next/static/media/stanley.4212d507.jpeg',
-    '11':'https://pixel8labs.com/_next/static/media/owen.e58fd656.jpeg',
-    '12':'https://pixel8labs.com/_next/static/media/chris.9d76997b.jpeg'
-  };
+  // All case-study and leadership visuals are bundled locally so the deck never depends on remote image hashes.
 
-  const restoreBundled=async(img,key)=>{
-    try{
-      const r=await fetch(`imgdata/${key}.txt`,{cache:'force-cache'});
-      if(!r.ok) return;
-      const b64=await r.text();
-      img.removeAttribute('data-hq-source');
-      img.src=`data:image/jpeg;base64,${b64}`;
-    }catch(e){console.error('Image fallback failed',e)}
-  };
-
-  Object.entries(hqImages).forEach(([key,url])=>{
-    const img=document.querySelector(`img[data-img="${key}"]`);
-    if(!img) return;
-    let stopped=false;
-    const setHQ=()=>{
-      if(stopped) return;
-      if(img.getAttribute('src')!==url){
-        img.setAttribute('src',url);
-        img.setAttribute('data-hq-source','pixel8labs.com');
-        img.setAttribute('decoding','async');
-      }
-    };
-    const mo=new MutationObserver(()=>{
-      if(!stopped && img.getAttribute('src')!==url) setHQ();
-    });
-    mo.observe(img,{attributes:true,attributeFilter:['src']});
-    img.addEventListener('error',async()=>{
-      stopped=true;
-      mo.disconnect();
-      await restoreBundled(img,key);
-    },{once:true});
-    setHQ();
-    setTimeout(()=>{ if(!stopped){setHQ();mo.disconnect();} },2200);
-  });
-
-  // Keep slide 10 as a genuine visual case study rather than repeating its metrics
-  // inside the image panel. Link the visual to the first-party case page.
+  // Keep slide 10 as a genuine visual case study rather than repeating outcomes
+  // inside the image panel.
   const s10Visual=document.querySelector('#s10 .visual');
   if(s10Visual && !s10Visual.parentElement?.classList.contains('caseVisualLink')){
     const link=document.createElement('a');
@@ -78,7 +29,6 @@
     link.appendChild(s10Visual);
   }
 
-  // Turn the empty half of slide 02 into a fast visual explanation of the delivery model.
   const s2=document.querySelector('#s2');
   if(s2){
     const row=s2.querySelector('.row.wide');
@@ -104,7 +54,6 @@
     }
   }
 
-  // Make the final contact choices real conversion actions instead of decorative pills.
   const contactRow=document.querySelector('#s20 .pillrow');
   if(contactRow){
     contactRow.innerHTML=`
@@ -115,7 +64,6 @@
 
   document.querySelectorAll('.toc a').forEach((a,i)=>a.setAttribute('aria-label',`Go to slide ${i+1}`));
 
-  // Compact progress/navigation control.
   if(!document.querySelector('.deckProgress')){
     const progress=document.createElement('div');
     progress.className='deckProgress';
