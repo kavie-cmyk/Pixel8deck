@@ -14,6 +14,7 @@ from PIL import Image
 BASE = "https://pixel8labs.com"
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets"
+LOGO_OUT = OUT / "logos"
 UA = "Mozilla/5.0 (Pixel8DeckPages/1.0)"
 
 CASE_PAGES = {
@@ -44,6 +45,19 @@ FOUNDERS = {
     "10": "stanley.",
     "11": "owen.",
     "12": "chris.",
+}
+
+CLIENT_LOGOS = {
+    "louis-vuitton.svg": BASE + "/_next/static/media/logo-lv.5ef5b1ab.svg",
+    "base.svg": BASE + "/_next/static/media/logo-base.e5f04357.svg",
+    "okx.svg": BASE + "/_next/static/media/logo-okx.80279ff2.svg",
+    "jupiter.svg": BASE + "/_next/static/media/logo-jupiter.79733397.svg",
+    "tether.svg": BASE + "/_next/static/media/logo-tether.13407c27.svg",
+    "pancakeswap.png": BASE + "/_next/static/media/logo-pancakeswap.773c7e32.png",
+    "pendle.svg": BASE + "/_next/static/media/logo-pendle.9613c28a.svg",
+    "w3gg.png": BASE + "/_next/static/media/logo-w3gg.0ac51c39.png",
+    "treasure.svg": "https://treasure.lol/favicon.svg",
+    "mandala-club.png": "https://static.wixstatic.com/media/cf1213_af1d35a670c3469da5461aba8077c3b2~mv2.png",
 }
 
 
@@ -146,14 +160,28 @@ def fetch_founders() -> None:
             raise RuntimeError(f"Could not fetch founder asset {key}: {last_error}")
 
 
+def fetch_client_logos() -> None:
+    LOGO_OUT.mkdir(parents=True, exist_ok=True)
+    for filename, url in CLIENT_LOGOS.items():
+        data = get_bytes(url)
+        if len(data) < 100:
+            raise RuntimeError(f"Logo asset looks incomplete: {filename}")
+        (LOGO_OUT / filename).write_bytes(data)
+        print(f"logo {filename}: {len(data)} bytes <- {url}")
+
+
 def main() -> None:
     for key, page in CASE_PAGES.items():
         fetch_case(key, page)
     fetch_founders()
+    fetch_client_logos()
     required = ["01", "02", "03", "04", "05", "06", "07", "08", "10", "11", "12"]
     missing = [k for k in required if not (OUT / f"{k}.jpg").exists()]
     if missing:
         raise SystemExit(f"Missing generated assets: {', '.join(missing)}")
+    missing_logos = [name for name in CLIENT_LOGOS if not (LOGO_OUT / name).exists()]
+    if missing_logos:
+        raise SystemExit(f"Missing client logos: {', '.join(missing_logos)}")
 
 
 if __name__ == "__main__":

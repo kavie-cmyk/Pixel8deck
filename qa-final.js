@@ -8,6 +8,11 @@
     overviewLead.textContent='We help teams decide what to build, build it, automate the work around it, bring it to market, and keep it secure.';
   }
 
+  const coverLead=byId('s1')?.querySelector('.lead');
+  if(coverLead){
+    coverLead.textContent='An AI-enabled product studio helping fintech, web3 and emerging-tech teams move from product decisions to production, growth and security.';
+  }
+
   // Keep the deck usable during asset refreshes and in local/offline previews.
   document.querySelectorAll('img[data-img]').forEach(img=>{
     const restoreBundled=async()=>{
@@ -25,9 +30,9 @@
     img.addEventListener('error',restoreBundled,{once:true});
     if(img.complete&&!img.naturalWidth) restoreBundled();
   });
-  const coreIds=['s1','s2','s12','s15','s3','s4','s13','s14','s5','s17','s18','s19','s20'];
+  const coreIds=['s1','s2','s3','s12','s15','s4','s13','s14','s5','s17','s18','s19','s20'];
   const appendixIds=['s6','s7','s8','s9','s10','s11','s16'];
-  const allIds=['s1','s2','s12','s15','s3','s4','s6','s7','s8','s9','s10','s11','s16','s13','s14','s5','s17','s18','s19','s20'];
+  const allIds=['s1','s2','s3','s12','s15','s4','s6','s7','s8','s9','s10','s11','s16','s13','s14','s5','s17','s18','s19','s20'];
   const insertBefore=progressAnchor||null;
 
   allIds.forEach(id=>{
@@ -42,9 +47,9 @@
     header.innerHTML=`
       <a class="siteHeader__brand" href="#s1" aria-label="Pixel8Labs home"><span aria-hidden="true">8</span>Pixel8Labs</a>
       <nav class="siteHeader__nav" aria-label="Primary navigation">
-        <a href="#s12">Outcomes</a><a href="#s4">Capabilities</a><a href="#s13">Work</a><a href="#s19">Team</a>
+        <a href="#s3">When to bring us in</a><a href="#s12">Outcomes</a><a href="#s4">Capabilities</a><a href="#s13">Work</a>
       </nav>
-      <a class="siteHeader__cta" href="https://chat.pixel8labs.com" target="_blank" rel="noopener noreferrer">Book a conversation</a>`;
+      <a class="siteHeader__cta" href="https://chat.pixel8labs.com" target="_blank" rel="noopener noreferrer">Book a discovery call</a>`;
     document.body.prepend(header);
   }
 
@@ -116,12 +121,43 @@
       <div class="securityProof__item"><span class="securityProof__index">03</span><div><strong>Mocaverse</strong><small>Staking &amp; NFTs</small></div></div>`;
   }
 
+  const clientLogos={
+    'Louis Vuitton':'assets/logos/louis-vuitton.svg',
+    'Base':'assets/logos/base.svg',
+    'W3GG':'assets/logos/w3gg.png',
+    'OKX':'assets/logos/okx.svg',
+    'Jupiter':'assets/logos/jupiter.svg',
+    'Tether':'assets/logos/tether.svg',
+    'Pendle':'assets/logos/pendle.svg',
+    'PancakeSwap':'assets/logos/pancakeswap.png',
+    'Treasure ecosystem':'assets/logos/treasure.svg',
+    'Mandala Club':'assets/logos/mandala-club.png'
+  };
   byId('s15')?.querySelectorAll('.logo').forEach((logo,i)=>{
     const name=logo.textContent.trim();
-    const initials=name.split(/\s+/).map(word=>word[0]).join('').slice(0,2);
-    logo.innerHTML=`<span class="clientMark" aria-hidden="true">${initials}</span><span>${name}</span>`;
+    const src=clientLogos[name];
+    if(src){
+      logo.innerHTML=`<img class="clientLogo" src="${src}" alt="${name}" loading="lazy" decoding="async"><span class="clientName">${name}</span>`;
+    }
     logo.style.setProperty('--client-delay',`${i*24}ms`);
   });
+
+  const finalSlide=byId('s20');
+  const finalHeading=finalSlide?.querySelector('h1');
+  const finalLead=finalSlide?.querySelector('.lead');
+  const finalCardHeading=finalSlide?.querySelector('.card h3');
+  if(finalHeading) finalHeading.textContent='Start with the problem.';
+  if(finalLead) finalLead.textContent='Bring the problem, product stage and timeline. We’ll help identify the smallest useful first engagement.';
+  if(finalCardHeading) finalCardHeading.textContent='Discovery call';
+  const finalCta=finalSlide?.querySelector('a[href*="chat.pixel8labs.com"]');
+  if(finalCta) finalCta.textContent='Book a discovery call ↗';
+  const finalPills=finalSlide?.querySelector('.pillrow');
+  if(finalPills&&!finalSlide.querySelector('.ctaMicrocopy')){
+    const note=document.createElement('p');
+    note.className='ctaMicrocopy';
+    note.textContent='No prepared brief required · Scoped proposal within one week';
+    finalPills.insertAdjacentElement('afterend',note);
+  }
 
   ['s13','s14'].forEach(id=>{
     byId(id)?.querySelectorAll('.grid3>div').forEach(card=>{
