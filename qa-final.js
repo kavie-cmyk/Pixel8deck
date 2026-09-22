@@ -2,6 +2,12 @@
   const byId=id=>document.getElementById(id);
   const progressAnchor=document.querySelector('.deckProgress');
 
+  document.title='Pixel8Labs — We Build What’s Next';
+  const overviewLead=byId('s2')?.querySelector('.lead');
+  if(overviewLead){
+    overviewLead.textContent='We help teams decide what to build, build it, automate the work around it, bring it to market, and keep it secure.';
+  }
+
   // Keep the deck usable during asset refreshes and in local/offline previews.
   document.querySelectorAll('img[data-img]').forEach(img=>{
     const restoreBundled=async()=>{
@@ -21,7 +27,7 @@
   });
   const coreIds=['s1','s2','s12','s15','s3','s4','s13','s14','s5','s17','s18','s19','s20'];
   const appendixIds=['s6','s7','s8','s9','s10','s11','s16'];
-  const allIds=[...coreIds,...appendixIds];
+  const allIds=['s1','s2','s12','s15','s3','s4','s6','s7','s8','s9','s10','s11','s16','s13','s14','s5','s17','s18','s19','s20'];
   const insertBefore=progressAnchor||null;
 
   allIds.forEach(id=>{
@@ -47,10 +53,13 @@
     const button=document.createElement('button');
     button.className='appendixToggle';
     button.type='button';
-    button.innerHTML='<span>Explore detailed capabilities</span><span aria-hidden="true">→</span>';
+    button.setAttribute('aria-expanded','false');
+    button.setAttribute('aria-controls',appendixIds.join(' '));
+    button.innerHTML='<span>Explore each capability</span><span aria-hidden="true">→</span>';
     capabilityTop.appendChild(button);
     button.addEventListener('click',()=>{
       document.body.classList.add('appendixOpen');
+      button.setAttribute('aria-expanded','true');
       refreshSlides();
       byId('s6')?.scrollIntoView({behavior:'auto',block:'start'});
     });
@@ -59,14 +68,36 @@
     const close=document.createElement('button');
     close.className='appendixClose';
     close.type='button';
-    close.textContent='Back to main deck';
+    close.textContent='Return to capabilities';
     close.addEventListener('click',()=>{
       document.body.classList.remove('appendixOpen');
+      capabilityTop?.querySelector('.appendixToggle')?.setAttribute('aria-expanded','false');
       refreshSlides();
       byId('s4')?.scrollIntoView({behavior:'auto',block:'start'});
     });
     document.body.appendChild(close);
   }
+
+  const openCapability=id=>{
+    document.body.classList.add('appendixOpen');
+    capabilityTop?.querySelector('.appendixToggle')?.setAttribute('aria-expanded','true');
+    refreshSlides();
+    byId(id)?.scrollIntoView({behavior:'auto',block:'start'});
+  };
+  document.querySelectorAll('.jumpnav a').forEach(link=>{
+    const id=(link.getAttribute('href')||'').replace(/^#/,'');
+    if(!appendixIds.includes(id)) return;
+    link.addEventListener('click',event=>{
+      event.preventDefault();
+      history.replaceState(null,'',`#${id}`);
+      openCapability(id);
+    });
+  });
+  addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&document.body.classList.contains('appendixOpen')){
+      document.querySelector('.appendixClose')?.click();
+    }
+  });
 
   const communityMetric=byId('s12')?.querySelector('.grid5 .card:first-child .metric');
   if(communityMetric){
@@ -113,7 +144,7 @@
   const progress=document.createElement('div');
   progress.className='deckProgress';
   progress.setAttribute('role','navigation');
-  progress.setAttribute('aria-label','Deck navigation');
+  progress.setAttribute('aria-label','Presentation navigation');
   progress.innerHTML='<button class="deckProgress__prev" type="button" aria-label="Previous section">←</button><div class="deckProgress__track" aria-hidden="true"><div class="deckProgress__fill"></div></div><div class="deckProgress__label" aria-live="polite"></div><button class="deckProgress__next" type="button" aria-label="Next section">→</button>';
   document.body.appendChild(progress);
 
@@ -125,8 +156,8 @@
   const next=progress.querySelector('.deckProgress__next');
 
   function refreshSlides(){
-    slides=coreIds.map(byId).filter(Boolean);
-    if(document.body.classList.contains('appendixOpen')) slides.push(...appendixIds.map(byId).filter(Boolean));
+    const ids=document.body.classList.contains('appendixOpen')?allIds:coreIds;
+    slides=ids.map(byId).filter(Boolean);
     updateActive();
   }
   function render(){
@@ -168,7 +199,13 @@
   addEventListener('resize',updateActive,{passive:true});
   refreshSlides();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    const deepLink=location.hash ? byId(location.hash.slice(1)) : null;
+    const deepLinkId=location.hash.slice(1);
+    if(appendixIds.includes(deepLinkId)){
+      document.body.classList.add('appendixOpen');
+      capabilityTop?.querySelector('.appendixToggle')?.setAttribute('aria-expanded','true');
+      refreshSlides();
+    }
+    const deepLink=deepLinkId ? byId(deepLinkId) : null;
     if(deepLink&&getComputedStyle(deepLink).display!=='none'){
       deepLink.scrollIntoView({behavior:'auto',block:'start'});
     }

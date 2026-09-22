@@ -11,9 +11,9 @@ body.appendixOpen .slide.appendixSlide{display:block!important}
 .siteHeader__brand{display:flex;align-items:center;gap:9px;font:800 14px/1 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .siteHeader__brand span{display:grid;place-items:center;width:28px;height:28px;border:1px solid #ff5aac;color:#ff75ba;font-size:12px;box-shadow:-4px 4px 0 rgba(255,90,172,.22)}
 .siteHeader__nav{display:flex;align-items:center;gap:22px;margin-left:auto}
-.siteHeader__nav a{font:700 12px/1 Arial,sans-serif;color:#d8cce0;transition:color .18s ease}
+.siteHeader__nav a{display:flex;align-items:center;min-height:44px;padding:0 4px;font:700 12px/1 Arial,sans-serif;color:#d8cce0;transition:color .18s ease}
 .siteHeader__nav a:hover,.siteHeader__nav a:focus-visible{color:#fff;outline:none}
-.siteHeader__cta{margin-left:8px;padding:10px 14px;background:linear-gradient(90deg,#ff4d9b,#9138ff);font:800 12px/1 Arial,sans-serif;border:1px solid transparent}
+.siteHeader__cta{display:flex;align-items:center;min-height:44px;margin-left:8px;padding:10px 14px;background:linear-gradient(90deg,#ff4d9b,#9138ff);font:800 12px/1 Arial,sans-serif;border:1px solid transparent}
 .siteHeader__cta:hover,.siteHeader__cta:focus-visible{filter:brightness(1.12);outline:2px solid #ff83c1;outline-offset:2px}
 
 .pixelmark:after{content:"PIXEL";position:absolute;top:42px;left:50%;transform:translateX(-50%);font:800 7px/1 Arial,sans-serif;letter-spacing:.14em;color:rgba(255,255,255,.55)}
@@ -24,7 +24,9 @@ body.appendixOpen .slide.appendixSlide{display:block!important}
 .appendixToggle:hover,.appendixToggle:focus-visible{border-color:#ff69b4;background:rgba(255,77,155,.12);outline:2px solid transparent}
 .appendixClose{display:none;position:fixed;right:18px;bottom:78px;z-index:1350;min-height:44px;padding:0 16px;border:1px solid rgba(255,255,255,.24);background:rgba(10,4,17,.92);color:#fff;font:800 12px/1 Arial,sans-serif;cursor:pointer}
 .appendixOpen .appendixClose{display:block}
-.appendixSlide .eyebrow:after{content:" · Detailed appendix";color:#ff79ba}
+.appendixSlide .eyebrow:after{content:" · Capability detail";color:#ff79ba}
+
+.jumpnav a,.pill[href]{display:inline-flex;align-items:center;justify-content:center;min-height:44px}
 
 .ribbon{background:linear-gradient(90deg,#253dc3,#7c2fe4 52%,#d23880)!important}
 
