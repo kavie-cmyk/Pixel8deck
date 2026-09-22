@@ -60,6 +60,7 @@
     button.addEventListener('click',()=>{
       document.body.classList.add('appendixOpen');
       button.setAttribute('aria-expanded','true');
+      history.replaceState(null,'','#s6');
       refreshSlides();
       byId('s6')?.scrollIntoView({behavior:'auto',block:'start'});
     });
@@ -72,6 +73,7 @@
     close.addEventListener('click',()=>{
       document.body.classList.remove('appendixOpen');
       capabilityTop?.querySelector('.appendixToggle')?.setAttribute('aria-expanded','false');
+      history.replaceState(null,'','#s4');
       refreshSlides();
       byId('s4')?.scrollIntoView({behavior:'auto',block:'start'});
     });
